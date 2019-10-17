@@ -21,9 +21,9 @@ public class FrequentStringsTest {
 
 	@Test
 	public void test2() {
-		FrequentStrings fs = new FrequentStrings(new String[] { "a", "a", "b", "c", "b", "b" });
+		FrequentStrings fs = new FrequentStrings(new String[] { "a", "a", "b", "c", "b", "b", "d"});
 		fs.remove("b");
-		assertEquals(Arrays.asList("a", "b", "c"), fs.stringsSorted());
+		assertEquals(Arrays.asList("a", "b", "c", "d"), fs.stringsSorted());
 	}
 
 	@Test
@@ -106,5 +106,15 @@ public class FrequentStringsTest {
 		fs1.remove("abc");
 		assertTrue(!fs1.contains("abc"));
 		assertTrue(!fs1.similar(fs2));
+
+		FrequentStrings fs3 = new FrequentStrings();
+		fs3.add("abc");
+		FrequentStrings fs4 = new FrequentStrings();
+		fs4.add("abc");
+		fs4.add("abc");
+		assertTrue(fs3.similar(fs4));
+		fs3.remove("abc");
+		assertTrue(!fs3.contains("abc"));
+		assertTrue(!fs3.similar(fs4));
 	}
 }
