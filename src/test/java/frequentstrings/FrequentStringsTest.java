@@ -10,10 +10,13 @@ public class FrequentStringsTest {
 
 	@Test
 	public void test1() {
-		FrequentStrings fs = new FrequentStrings(new String[] { "b", "b", "b", "c", "a", "a" });
-		assertEquals(Arrays.asList("a", "b", "c"), fs.stringsSorted());
+		FrequentStrings fs = new FrequentStrings(new String[] { "b", "b", "b", "c", "a", "a", "d", "dead", "dead", "dead" });
+		//assertEquals(Arrays.asList("a", "b", "c", "d"), fs.stringsSorted());
+		fs.remove("b");
+		fs.remove("b");
+		fs.remove("b");
 		try {
-			assertEquals("b", fs.getMode());
+			assertEquals("dead", fs.getMode());
 		} catch (Exception e) {
 			fail("No exception expected");
 		}
@@ -21,7 +24,7 @@ public class FrequentStringsTest {
 
 	@Test
 	public void test2() {
-		FrequentStrings fs = new FrequentStrings(new String[] { "a", "a", "b", "c", "b", "b", "d"});
+		FrequentStrings fs = new FrequentStrings(new String[] { "a", "a", "b", "c", "b", "b", "d", "dead", "deed"});
 		fs.remove("b");
 		assertEquals(Arrays.asList("a", "b", "c", "d"), fs.stringsSorted());
 	}

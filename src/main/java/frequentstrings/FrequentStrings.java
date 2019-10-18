@@ -141,6 +141,9 @@ public class FrequentStrings {
 	public int hashCode() {
 		int hashcode;
 		hashcode = this.fs.size();
+		for (int i = 0; i < fs.size(); i++) {
+			hashcode += fs.get(i).hashCode();
+		}
 		return hashcode;
 	}
 
