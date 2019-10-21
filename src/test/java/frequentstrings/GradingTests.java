@@ -1,22 +1,17 @@
 package frequentstrings;
 
 import static org.junit.Assert.*;
-
 import java.util.Arrays;
-
 import org.junit.Test;
 
-public class FrequentStringsTest {
+public class GradingTests {
 
 	@Test
 	public void test1() {
-		FrequentStrings fs = new FrequentStrings(new String[] { "b", "b", "b", "c", "a", "a", "d", "dead", "dead", "dead" });
-		//assertEquals(Arrays.asList("a", "b", "c", "d"), fs.stringsSorted());
-		fs.remove("b");
-		fs.remove("b");
-		fs.remove("b");
+		FrequentStrings fs = new FrequentStrings(new String[] { "b", "b", "b", "c", "a", "a" });
+		assertEquals(Arrays.asList("a", "b", "c"), fs.stringsSorted());
 		try {
-			assertEquals("dead", fs.getMode());
+			assertEquals("b", fs.getMode());
 		} catch (Exception e) {
 			fail("No exception expected");
 		}
@@ -24,9 +19,9 @@ public class FrequentStringsTest {
 
 	@Test
 	public void test2() {
-		FrequentStrings fs = new FrequentStrings(new String[] { "a", "a", "b", "c", "b", "b", "d", "dead", "deed"});
+		FrequentStrings fs = new FrequentStrings(new String[] { "a", "a", "b", "c", "b", "b" });
 		fs.remove("b");
-		assertEquals(Arrays.asList("a", "b", "c", "d"), fs.stringsSorted());
+		assertEquals(Arrays.asList("a", "b", "c"), fs.stringsSorted());
 	}
 
 	@Test
@@ -109,15 +104,35 @@ public class FrequentStringsTest {
 		fs1.remove("abc");
 		assertTrue(!fs1.contains("abc"));
 		assertTrue(!fs1.similar(fs2));
-
-		FrequentStrings fs3 = new FrequentStrings();
-		fs3.add("abc");
-		FrequentStrings fs4 = new FrequentStrings();
-		fs4.add("abc");
-		fs4.add("abc");
-		assertTrue(fs3.similar(fs4));
-		fs3.remove("abc");
-		assertTrue(!fs3.contains("abc"));
-		assertTrue(!fs3.similar(fs4));
 	}
+
+	@Test
+	public void test10() {
+		FrequentStrings fs = new FrequentStrings(new String[] { "a", "a", "alpha", "beta", "a", "gamma", "delta" });
+		assertEquals(Arrays.asList("a", "alpha", "beta", "delta", "gamma"), fs.stringsSorted());
+		try {
+			assertEquals("a", fs.getMode());
+		} catch (Exception e) {
+			fail("No exception expected");
+		}
+	}
+
+	@Test
+	public void test11() {
+		FrequentStrings fs = new FrequentStrings();
+		fs.add("Logan");
+		assertTrue(fs.contains("Logan"));
+		assertTrue(!fs.contains(" "));
+	}
+
+	@Test
+	public void test12() {
+		FrequentStrings fs1 = new FrequentStrings(new String[] { "Eena", "Meena", "Deeka", "Meena", "Eena" });
+		FrequentStrings fs2 = new FrequentStrings(new String[] { "Eena", "Meena", "Deeka", "Damanika" });
+		assertTrue(!fs1.equals(fs2));
+		assertTrue(!fs2.similar(fs1));
+		fs2.remove("Damanika");
+		assertTrue(fs1.similar(fs2));
+	}
+
 }
